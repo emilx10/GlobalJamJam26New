@@ -9,6 +9,6 @@ public enum StatType
 {
     Damage,
     MoveSpeed,
-    FireRate,
-    MaxHP
+    MaxHP,
+    AttackSpeed
 }

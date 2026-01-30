@@ -5,41 +5,76 @@ public class EnemyPool : MonoBehaviour
 {
     public static EnemyPool Instance;
 
-    public GameObject enemyPrefab;
-    public int poolSize = 20;
+    [Header("Enemy Types")]
+    public EnemyData[] enemyTypes; // assign multiple EnemyData in inspector
 
-    private Queue<GameObject> pool = new Queue<GameObject>();
+    Dictionary<EnemyData, Queue<Enemy>> pools = new();
 
     void Awake()
     {
         Instance = this;
-        for (int i = 0; i < poolSize; i++)
+
+        // initialize queues
+        foreach (var data in enemyTypes)
         {
-            GameObject obj = Instantiate(enemyPrefab);
-            obj.SetActive(false);
-            pool.Enqueue(obj);
+            if (!pools.ContainsKey(data))
+                pools[data] = new Queue<Enemy>();
         }
     }
 
-    public GameObject GetEnemy(Vector2 spawnPos)
+    /// <summary>
+    /// Spawns a random enemy type at the given position
+    /// </summary>
+    public Enemy Spawn(Vector2 pos)
     {
-        if (pool.Count == 0)
+        if (enemyTypes.Length == 0)
         {
-            GameObject obj = Instantiate(enemyPrefab);
-            obj.SetActive(true);
-            obj.transform.position = spawnPos;
-            return obj;
+            Debug.LogError("No EnemyData assigned to EnemyPool!");
+            return null;
         }
 
-        GameObject enemy = pool.Dequeue();
-        enemy.transform.position = spawnPos;
-        enemy.SetActive(true);
+        // Pick a random type
+        EnemyData data = enemyTypes[Random.Range(0, enemyTypes.Length)];
+
+        return Spawn(data, pos);
+    }
+
+    /// <summary>
+    /// Spawns a specific enemy type at the given position
+    /// </summary>
+    public Enemy Spawn(EnemyData data, Vector2 pos)
+    {
+        if (!pools.ContainsKey(data))
+            pools[data] = new Queue<Enemy>();
+
+        Enemy enemy;
+
+        if (pools[data].Count > 0)
+        {
+            enemy = pools[data].Dequeue();
+        }
+        else
+        {
+            enemy = Instantiate(data.prefab).GetComponent<Enemy>();
+        }
+
+        enemy.transform.position = pos;
+        enemy.gameObject.SetActive(true);
+        enemy.Init(data);
+
         return enemy;
     }
 
-    public void ReturnEnemy(GameObject enemy)
+    /// <summary>
+    /// Returns enemy to the pool
+    /// </summary>
+    public void ReturnEnemy(Enemy enemy)
     {
-        enemy.SetActive(false);
-        pool.Enqueue(enemy);
+        enemy.gameObject.SetActive(false);
+
+        if (!pools.ContainsKey(enemy.data))
+            pools[enemy.data] = new Queue<Enemy>();
+
+        pools[enemy.data].Enqueue(enemy);
     }
 }

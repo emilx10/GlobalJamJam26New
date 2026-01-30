@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 065f55aa6340e42448e3f97be818686b, type: 3}
+  m_Name: Hell Leech
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  prefab: {fileID: 6717924599749919225, guid: a4d2289d897cac14abb2ad502cc4e7ae, type: 3}
+  type: 1
+  moveSpeed: 3
+  maxHP: 14
+  damage: 7
+  minX: 0
+  maxX: 5
+  minY: 3
+  maxY: 0

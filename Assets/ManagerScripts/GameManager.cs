@@ -4,42 +4,28 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public RunManager runManager;
-    public ChaosManager chaosManager;
+    public GameObject skillTreePanel;
 
     void Awake()
     {
         Instance = this;
-        StartRun();
     }
 
-    public void StartRun()
-    {
-        Time.timeScale = 1f;
-        runManager.StartRun();
-    }
-
-    public void EnterChaos()
-    {
-        Time.timeScale = 0f;
-        chaosManager.ShowChaosCards();
-    }
-
-    public void ExitChaos()
-    {
-        chaosManager.HideChaosCards();
-        Time.timeScale = 1f;
-    }
-
+    // Called when run ends
     public void EnterSkillTree()
     {
-        Time.timeScale = 0f;
-        chaosManager.ShowSkillTree();
+        if (skillTreePanel != null)
+            skillTreePanel.SetActive(true);
+
+        // game already paused by RunManager
     }
 
+    // Close skill tree
     public void ExitSkillTree()
     {
-        chaosManager.HideSkillTree();
-        StartRun();
+        if (skillTreePanel != null)
+            skillTreePanel.SetActive(false);
+
+        RunManager.Instance.StartNewRun();
     }
 }
