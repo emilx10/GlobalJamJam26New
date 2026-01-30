@@ -1,22 +1,31 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-    public float spawnRate = 1.5f;
+    public float spawnInterval = 2f;
+    public float spawnXMin = -7f;
+    public float spawnXMax = 7f;
+    public float spawnY = -5f; // start below screen
 
-    float timer;
-
-    void Update()
+    void Start()
     {
-        if (Time.timeScale == 0f) return;
+        StartCoroutine(SpawnLoop());
+    }
 
-        timer -= Time.deltaTime;
-        if (timer <= 0f)
+    IEnumerator SpawnLoop()
+    {
+        while (true)
         {
-            timer = spawnRate;
-            Vector2 pos = Random.insideUnitCircle.normalized * 8f;
-            Instantiate(enemyPrefab, pos, Quaternion.identity);
+            SpawnEnemy();
+            yield return new WaitForSeconds(spawnInterval);
         }
+    }
+
+    void SpawnEnemy()
+    {
+        float x = Random.Range(spawnXMin, spawnXMax);
+        Vector2 spawnPos = new Vector2(x, spawnY);
+        EnemyPool.Instance.GetEnemy(spawnPos);
     }
 }

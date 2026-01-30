@@ -1,34 +1,33 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SkillNode : MonoBehaviour
 {
     public SkillNode[] unlocks;     // Connected nodes
-    public LineRenderer[] lines;    // Lines to children
-
     public int cost = 5;
     public SkillEffect effect;
 
     Button button;
     bool unlocked;
-    public bool isRoot = false;
-
+    public bool isRoot;
     void Awake()
     {
         button = GetComponent<Button>();
-        button.onClick.RemoveAllListeners();
         button.onClick.AddListener(Choose);
-
         if (isRoot)
-            SetVisible(true); // root node visible
+        {
+            SetVisible(true);
+        }
         else
-            SetVisible(false); // children hidden
+        {
+            SetVisible(false); // hide by default
+        }
     }
+
     public void SetVisible(bool v)
     {
         gameObject.SetActive(v);
-        foreach (var l in lines)
-            l.gameObject.SetActive(v);
     }
 
     void Choose()
@@ -41,7 +40,23 @@ public class SkillNode : MonoBehaviour
 
         effect.Apply();
 
+        // Show children for 3 seconds
+        StartCoroutine(RevealChildrenThenStartRun());
+    }
+
+    IEnumerator RevealChildrenThenStartRun()
+    {
         foreach (var n in unlocks)
             n.SetVisible(true);
+
+        // Wait 3 seconds
+        yield return new WaitForSecondsRealtime(3f);
+
+        // Hide children again (optional)
+        // foreach (var n in unlocks)
+        //     n.SetVisible(false);
+
+        // Close skill tree and start new run
+        GameManager.Instance.ExitSkillTree();
     }
 }
