@@ -1,31 +1,47 @@
 using UnityEngine;
-using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public EnemyData[] enemyTypes; // assign Warden and HellLeech
+
+    [Header("Spawn Area Vertical")]
+    public float spawnMinX = -5f;
+    public float spawnMaxX = 5f;
+    public float spawnY = -5f;
+
+    [Header("Spawn Interval")]
     public float spawnInterval = 2f;
-    public float spawnXMin = -7f;
-    public float spawnXMax = 7f;
-    public float spawnY = -5f; // start below screen
+    float timer;
 
-    void Start()
+    void Update()
     {
-        StartCoroutine(SpawnLoop());
-    }
-
-    IEnumerator SpawnLoop()
-    {
-        while (true)
+        timer -= Time.deltaTime;
+        if (timer <= 0f)
         {
-            SpawnEnemy();
-            yield return new WaitForSeconds(spawnInterval);
+            timer = spawnInterval;
+            SpawnRandomEnemy();
         }
     }
 
-    void SpawnEnemy()
+    void SpawnRandomEnemy()
     {
-        float x = Random.Range(spawnXMin, spawnXMax);
-        Vector2 spawnPos = new Vector2(x, spawnY);
-        EnemyPool.Instance.GetEnemy(spawnPos);
+        if (enemyTypes.Length == 0) return;
+
+        // pick random enemy type
+        EnemyData data = enemyTypes[Random.Range(0, enemyTypes.Length)];
+
+        Vector2 pos = Vector2.zero;
+
+        if (data.type == EnemyType.Warden)
+        {
+            float randomX = Random.Range(spawnMinX, spawnMaxX);
+            pos = new Vector2(randomX, spawnY);
+        }
+        else if (data.type == EnemyType.HellLeech)
+        {
+            pos = new Vector2(data.minX, data.minY); // start horizontal movement at minX
+        }
+
+        EnemyPool.Instance.Spawn(data, pos);
     }
 }

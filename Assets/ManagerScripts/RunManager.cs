@@ -1,36 +1,76 @@
-using TMPro;
 using UnityEngine;
 
 public class RunManager : MonoBehaviour
 {
-    public float runDuration = 40f;
-    float timer;
+    public static RunManager Instance;
 
-    public TextMeshProUGUI timerText;
-    bool chaosTriggered;
+    bool chaos20Triggered;
+    bool chaos10Triggered;
+    bool runEnded;           // true when HP reaches 0
+    public bool runPaused;
 
-    public void StartRun()
+    void Awake()
     {
-        timer = runDuration;
-        chaosTriggered = false;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
     }
 
     void Update()
     {
-        if (Time.timeScale == 0f) return;
+        if (PlayerStats.Instance == null || runPaused) return;
 
-        timer -= Time.deltaTime;
-        timerText.text = Mathf.CeilToInt(timer).ToString();
+        // Clamp HP to >= 0
+        PlayerStats.Instance.HP = Mathf.Max(0f, PlayerStats.Instance.HP);
+        float time = PlayerStats.Instance.HP;
 
-        if (timer <= 20f && !chaosTriggered)
+        // Chaos card at 20s
+        if (time <= 20f && !chaos20Triggered)
         {
-            chaosTriggered = true;
-            GameManager.Instance.EnterChaos();
+            chaos20Triggered = true;
+            PauseRun();
+            ChaosManager.Instance.ShowChaosCards(ResumeRun);
         }
 
-        if (timer <= 0f)
+        // Chaos card at 10s
+        if (time <= 10f && !chaos10Triggered)
         {
-            GameManager.Instance.EnterSkillTree();
+            chaos10Triggered = true;
+            PauseRun();
+            ChaosManager.Instance.ShowChaosCards(ResumeRun);
         }
+
+        // Run ends at 0
+        if (time <= 0f && !runEnded)
+        {
+            runEnded = true;
+            PauseRun();
+            GameManager.Instance.EnterSkillTree(); // shows panel and pauses game
+        }
+    }
+
+    void PauseRun()
+    {
+        runPaused = true;
+        Time.timeScale = 0f; // freeze game
+    }
+
+    void ResumeRun()
+    {
+        runPaused = false;
+        Time.timeScale = 1f; // resume game
+    }
+
+    public void StartNewRun()
+    {
+        PlayerStats.Instance.HP = 40f;
+        chaos20Triggered = false;
+        chaos10Triggered = false;
+        runEnded = false;
+        ChaosManager.Instance.ResetRun();
+        ResumeRun();
     }
 }

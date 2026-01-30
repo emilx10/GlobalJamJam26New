@@ -4,25 +4,20 @@ using UnityEngine.UI;
 
 public class SkillNode : MonoBehaviour
 {
-    public SkillNode[] unlocks;     // Connected nodes
+    public SkillNode[] unlocks;
     public int cost = 5;
     public SkillEffect effect;
+    public bool isRoot;
 
     Button button;
     bool unlocked;
-    public bool isRoot;
+
     void Awake()
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(Choose);
-        if (isRoot)
-        {
-            SetVisible(true);
-        }
-        else
-        {
-            SetVisible(false); // hide by default
-        }
+
+        SetVisible(isRoot);
     }
 
     public void SetVisible(bool v)
@@ -33,14 +28,21 @@ public class SkillNode : MonoBehaviour
     void Choose()
     {
         if (unlocked) return;
-        if (CurrencyManager.Instance.ChaosOrbs < cost) return;
+
+        // Check currency
+        if (CurrencyManager.Instance.ChaosOrbs < cost)
+        {
+            StartCoroutine(AutoCloseSkillTree());
+            return;
+        }
 
         CurrencyManager.Instance.Spend(cost);
         unlocked = true;
 
         effect.Apply();
 
-        // Show children for 3 seconds
+        button.interactable = false;
+
         StartCoroutine(RevealChildrenThenStartRun());
     }
 
@@ -49,14 +51,15 @@ public class SkillNode : MonoBehaviour
         foreach (var n in unlocks)
             n.SetVisible(true);
 
-        // Wait 3 seconds
         yield return new WaitForSecondsRealtime(3f);
 
-        // Hide children again (optional)
-        // foreach (var n in unlocks)
-        //     n.SetVisible(false);
+        GameManager.Instance.ExitSkillTree(); // Exit panel, start new run
+    }
 
-        // Close skill tree and start new run
+    IEnumerator AutoCloseSkillTree()
+    {
+        yield return new WaitForSecondsRealtime(5f);
+
         GameManager.Instance.ExitSkillTree();
     }
 }

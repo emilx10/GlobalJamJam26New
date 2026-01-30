@@ -1,48 +1,55 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChaosManager : MonoBehaviour
 {
     public static ChaosManager Instance;
 
-    [Header("UI Panels")]
     public GameObject chaosCardPanel;
-    public GameObject skillTreePanel;
+    private HashSet<ChaosCardData> chosenThisRun = new();
+
+    System.Action onCardPicked;
 
     void Awake()
     {
         Instance = this;
     }
 
-    public void ShowChaosCards()
+    // Show cards and pause run
+    public void ShowChaosCards(System.Action callback)
     {
+        onCardPicked = callback;
+
         if (chaosCardPanel != null)
             chaosCardPanel.SetActive(true);
+
+        // disable already chosen cards
+        foreach (var btn in chaosCardPanel.GetComponentsInChildren<Button>())
+        {
+            var cardBtn = btn.GetComponent<ChaosCardButton>();
+            if (cardBtn != null)
+                btn.interactable = !chosenThisRun.Contains(cardBtn.cardData);
+        }
     }
 
-    public void HideChaosCards()
-    {
-        if (chaosCardPanel != null)
-            chaosCardPanel.SetActive(false);
-    }
-
-    public void ShowSkillTree()
-    {
-        if (skillTreePanel != null)
-            skillTreePanel.SetActive(true);
-    }
-
-    public void HideSkillTree()
-    {
-        if (skillTreePanel != null)
-            skillTreePanel.SetActive(false);
-    }
-
+    // Called when player clicks a chaos card
     public void ApplyCard(ChaosCardData card)
     {
         PlayerStats.Instance.Apply(card.playerModifier);
         EnemyManager.Instance.ApplyGlobal(card.enemyModifier);
 
-        HideChaosCards();
-        Time.timeScale = 1f;
+        chosenThisRun.Add(card);
+
+        if (chaosCardPanel != null)
+            chaosCardPanel.SetActive(false);
+
+        // Resume the run
+        onCardPicked?.Invoke();
+    }
+
+    public void ResetRun()
+    {
+        chosenThisRun.Clear();
     }
 }

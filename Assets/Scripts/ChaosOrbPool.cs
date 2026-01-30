@@ -44,7 +44,8 @@ public class ChaosOrbPool : MonoBehaviour
     IEnumerator DespawnAfter(GameObject orb, float time)
     {
         yield return new WaitForSeconds(time);
-        orb.SetActive(false);
+        if (orb != null)
+            orb.SetActive(false);
         pool.Enqueue(orb);
     }
 }
