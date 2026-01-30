@@ -1,36 +1,64 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Collections;
+using MoreMountains.Feedbacks;
+using UnityEngine.Events;
+using TMPro;
+using System.Collections.Generic;
 
 public class SkillNode : MonoBehaviour
 {
-    public SkillNode[] unlocks;     // Connected nodes
+    public static UnityAction onSkillPressed;
     public int cost = 5;
     public SkillEffect effect;
 
+    public List<SkillNode> connectedNodes;
+    public bool isUnlocked = false;
+
+    [Header("Visual")]
+    public float unlockLerpTime = 0.35f;
+    public string sliderProperty = "_Slider";
+
+    public event Action<SkillNode> OnUnlocked;
+
+    public TMP_Text Title;
+
     Button button;
+    public Image image;
+    Material runtimeMat;
+
     bool unlocked;
-    public bool isRoot;
+
     void Awake()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(Choose);
-        if (isRoot)
-        {
-            SetVisible(true);
-        }
-        else
-        {
-            SetVisible(false); // hide by default
-        }
+
+        runtimeMat = Instantiate(image.material);
+        image.material = runtimeMat;
+
+        runtimeMat.SetFloat(sliderProperty, 1f);
+
+        button.onClick.AddListener(OnClick);
     }
 
-    public void SetVisible(bool v)
+    public void SetLocked(bool locked)
     {
-        gameObject.SetActive(v);
+        button.interactable = !locked;
     }
 
-    void Choose()
+    public void Show(bool interactable)
+    {
+        gameObject.SetActive(true);
+        SetLocked(!interactable);
+    }
+
+    public void ChanggeData(SkillData data)
+    {
+        Title.text = data.skillName;
+    }
+
+    void OnClick()
     {
         if (unlocked) return;
         if (CurrencyManager.Instance.ChaosOrbs < cost) return;
@@ -39,24 +67,27 @@ public class SkillNode : MonoBehaviour
         unlocked = true;
 
         effect.Apply();
+        SetLocked(true);
 
-        // Show children for 3 seconds
-        StartCoroutine(RevealChildrenThenStartRun());
+        StartCoroutine(LerpUnlock());
+
+        OnUnlocked?.Invoke(this);
+
+        onSkillPressed?.Invoke();
     }
 
-    IEnumerator RevealChildrenThenStartRun()
+    IEnumerator LerpUnlock()
     {
-        foreach (var n in unlocks)
-            n.SetVisible(true);
+        float t = 0f;
 
-        // Wait 3 seconds
-        yield return new WaitForSecondsRealtime(3f);
+        while (t < unlockLerpTime)
+        {
+            t += Time.unscaledDeltaTime;
+            float v = Mathf.Lerp(1f, 0f, t / unlockLerpTime);
+            runtimeMat.SetFloat(sliderProperty, v);
+            yield return null;
+        }
 
-        // Hide children again (optional)
-        // foreach (var n in unlocks)
-        //     n.SetVisible(false);
-
-        // Close skill tree and start new run
-        GameManager.Instance.ExitSkillTree();
+        runtimeMat.SetFloat(sliderProperty, 0f);
     }
 }

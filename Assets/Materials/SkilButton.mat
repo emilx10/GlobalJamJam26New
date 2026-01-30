@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BeamMat
-  m_Shader: {fileID: -6465566751694194690, guid: adbce24ede2a36346801354b0b17c76c, type: 3}
+  m_Name: SkilButton
+  m_Shader: {fileID: -6465566751694194690, guid: 538656f952f630343af36a01839f18a3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -18,14 +18,13 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses:
-  - MOTIONVECTORS
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: de85ce92c751c12478e66a5a712d09fd, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -43,9 +42,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _QueueControl: 0
-    - _QueueOffset: 0
-    - _Speed: 0.3
+    - _NoiseScale: 1.41
+    - _Slider: 1
+    - _Speed: 0.05
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -54,20 +53,9 @@ Material:
     - _UIMaskSoftnessX: 1
     - _UIMaskSoftnessY: 1
     m_Colors:
-    - _BeamColor: {r: 1, g: 1, b: 1, a: 1}
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
+    - _ColorMultiplayer: {r: 0.17358482, g: 0, b: 0.0043669515, a: 1}
+    - _ColorMultiplayer_1: {r: 0.13310246, g: 0.004807757, b: 0, a: 1}
+    - _Directino: {r: 5, g: 5, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &3127622096790786290
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
-  version: 10
