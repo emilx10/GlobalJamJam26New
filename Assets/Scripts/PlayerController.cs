@@ -16,9 +16,9 @@ public class PlayerController : MonoBehaviour
         AutoShoot();
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    void OnMove(InputValue value)
     {
-        moveInput = context.ReadValue<Vector2>();
+        moveInput = value.Get<Vector2>();
     }
 
     void Move()
@@ -37,9 +37,10 @@ public class PlayerController : MonoBehaviour
         fireTimer = fireRate;
         Vector2 dir = (enemy.transform.position - transform.position).normalized;
 
-        Instantiate(bulletPrefab, transform.position, Quaternion.identity)
-            .GetComponent<Bullet>()
-            .Init(dir);
+        GameObject bullet = BulletPool.Instance.GetBullet();
+        bullet.transform.position = transform.position;
+        bullet.SetActive(true);
+        bullet.GetComponent<Bullet>().Init(dir);
     }
 
     GameObject FindClosestEnemy()

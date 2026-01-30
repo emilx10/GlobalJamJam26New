@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        StartRun();
     }
 
     public void StartRun()
