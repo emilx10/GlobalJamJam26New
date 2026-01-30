@@ -62,7 +62,7 @@ public class UIShake : MonoBehaviour
             rectTransform.anchoredPosition = originalPos + new Vector2(x, y);
 
             float alpha = Mathf.Sin(t * Mathf.PI);
-            c.a = Mathf.Lerp(0f, 2f, alpha);
+            c.a = Mathf.Lerp(0f, 0.15f, alpha);
             image.color = c;
 
             time += Time.unscaledDeltaTime;

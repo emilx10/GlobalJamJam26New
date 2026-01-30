@@ -9,6 +9,7 @@ public class SkillTreeController : MonoBehaviour
 
     Dictionary<SkillData, SkillNode> dataToNode = new();
     Dictionary<SkillNode, List<SkillNode>> graph = new();
+    Dictionary<SkillNode, SkillLink> nodeToIncomingLink = new();
 
     void Start()
     {
@@ -27,13 +28,16 @@ public class SkillTreeController : MonoBehaviour
             SkillNode node = Instantiate(nodePrefab, point);
             node.cost = data.cost;
             node.effect = data.effect;
-
             node.OnUnlocked += OnNodeUnlocked;
-
             node.gameObject.SetActive(false);
-
-
             node.ChanggeData(data);
+
+            SkillLink link = point.GetComponentInChildren<SkillLink>();
+            if (link != null)
+            {
+                link.Hide();
+                nodeToIncomingLink[node] = link;
+            }
 
             dataToNode[data] = node;
             graph[node] = new List<SkillNode>();
@@ -44,19 +48,14 @@ public class SkillTreeController : MonoBehaviour
     {
         foreach (var data in skills)
         {
-            if (data.requiresSkill == null)
-                continue;
+            if (data.requiresSkill == null) continue;
 
             SkillNode parent = dataToNode[data.requiresSkill];
             SkillNode child = dataToNode[data];
 
             graph[parent].Add(child);
 
-            int childIndex = skills.IndexOf(data);
-            RectTransform childPoint = spawnPoints[childIndex];
-
-            SkillLink link = childPoint.GetComponentInChildren<SkillLink>();
-            if (link != null)
+            if (nodeToIncomingLink.TryGetValue(child, out SkillLink link))
             {
                 link.Initialize(parent);
             }
@@ -67,8 +66,7 @@ public class SkillTreeController : MonoBehaviour
     {
         foreach (var data in skills)
         {
-            if (data.requiresSkill != null)
-                continue;
+            if (data.requiresSkill != null) continue;
 
             SkillNode root = dataToNode[data];
             root.Show(true);
@@ -76,15 +74,30 @@ public class SkillTreeController : MonoBehaviour
             foreach (var child in graph[root])
             {
                 child.Show(false);
+                if (nodeToIncomingLink.TryGetValue(child, out SkillLink link))
+                {
+                    link.ShowOff();
+                }
             }
         }
     }
 
-    void OnNodeUnlocked(SkillNode node)
+    void OnNodeUnlocked(SkillNode unlockedNode)
     {
-        foreach (var child in graph[node])
+        foreach (var child in graph[unlockedNode])
         {
             child.Show(true);
+
+            if (graph.ContainsKey(child))
+            {
+                foreach (var grandChild in graph[child])
+                {
+                    if (nodeToIncomingLink.TryGetValue(grandChild, out SkillLink nextLine))
+                    {
+                        nextLine.ShowOff();
+                    }
+                }
+            }
         }
     }
 }
