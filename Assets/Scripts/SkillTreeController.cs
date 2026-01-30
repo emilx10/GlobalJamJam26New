@@ -51,6 +51,15 @@ public class SkillTreeController : MonoBehaviour
             SkillNode child = dataToNode[data];
 
             graph[parent].Add(child);
+
+            int childIndex = skills.IndexOf(data);
+            RectTransform childPoint = spawnPoints[childIndex];
+
+            SkillLink link = childPoint.GetComponentInChildren<SkillLink>();
+            if (link != null)
+            {
+                link.Initialize(parent);
+            }
         }
     }
 
