@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
                 enemy.TakeDamage(attackDamage);
         }
 
-        Debug.Log("Trident attack executed!");
+       // Debug.Log("Trident attack executed!");
     }
 
     void OnDrawGizmosSelected()
