@@ -34,6 +34,6 @@ public class CurrencyManager : MonoBehaviour
     void UpdateUI()
     {
         if (chaosOrbText != null)
-            chaosOrbText.text = "Chaos: " + ChaosOrbs.ToString();
+            chaosOrbText.text = ChaosOrbs.ToString();
     }
 }

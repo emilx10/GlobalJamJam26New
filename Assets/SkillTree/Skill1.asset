@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1c6c561325c9e4d8054a23fbac49a3, type: 3}
   m_Name: Skill1
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
+  skillName: 
   skillId: 0
   cost: 5
-  effect: {fileID: 11400000, guid: 743d463b27e4f214c98362d7aaf5a5ea, type: 2}
+  effect: {fileID: 11400000, guid: 517c1fba41492c14b908e78f59a17e81, type: 2}
   requiresSkill: {fileID: 0}

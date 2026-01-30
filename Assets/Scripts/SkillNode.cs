@@ -64,8 +64,13 @@ public class SkillNode : MonoBehaviour
         StartCoroutine(LerpUnlock());
         OnUnlocked?.Invoke(this);
         onSkillPressed?.Invoke();
+        StartCoroutine(Wait());
     }
-
+    IEnumerator Wait()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+        GameManager.Instance.ExitSkillTree();
+    }
     IEnumerator LerpUnlock()
     {
         float t = 0f;
