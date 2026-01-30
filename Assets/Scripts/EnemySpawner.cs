@@ -32,12 +32,12 @@ public class EnemySpawner : MonoBehaviour
 
         Vector2 pos = Vector2.zero;
 
-        if (data.type == EnemyType.Warden)
+        if (data.type == EnemyType.HellLeech)
         {
             float randomX = Random.Range(spawnMinX, spawnMaxX);
             pos = new Vector2(randomX, spawnY);
         }
-        else if (data.type == EnemyType.HellLeech)
+        else if (data.type == EnemyType.Warden)
         {
             pos = new Vector2(data.minX, data.minY); // start horizontal movement at minX
         }

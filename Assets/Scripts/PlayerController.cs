@@ -57,7 +57,8 @@ public class PlayerController : MonoBehaviour
 
         Vector2 dir = (mousePos - trident.position);
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        trident.rotation = Quaternion.Euler(0, 0, angle);
+        //trident.rotation = Quaternion.Euler(0, 0, angle);
+        trident.transform.eulerAngles = new Vector3 (0, 0, angle);
     }
 
     void TryAttack()

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee1c6c561325c9e4d8054a23fbac49a3, type: 3}
-  m_Name: Skill1
+  m_Name: +1 DMG
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
   skillName: 
-  skillId: 0
-  cost: 5
-  effect: {fileID: 11400000, guid: 517c1fba41492c14b908e78f59a17e81, type: 2}
-  requiresSkill: {fileID: 0}
+  skillId: 1
+  cost: 6
+  effect: {fileID: 11400000, guid: 7d0ca170bfb1f0743868842dc178c1a7, type: 2}
+  requiresSkill: {fileID: 11400000, guid: 140d293a51710474aa6088a299e8918b, type: 2}

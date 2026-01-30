@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: ab2505a4444bb1d4a90152a65985f2ac
+guid: 5e69f96c7ce498546b44d694ca45fb36
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5003948941098365262
-    second: Character  (1)_0
-  - first:
-      213: 3577421639232995980
-    second: Character  (1)_1
+      213: -6155720088306163633
+    second: Dark blue _0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -50,11 +47,11 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
-  spriteExtrude: 32
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1200
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Character  (1)_0
+      name: Dark blue _0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 16
-        width: 1619
-        height: 2092
+        x: 623
+        y: 27
+        width: 407
+        height: 2036
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2bec3ab33f66e8ab0800000000000000
-      internalID: -5003948941098365262
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Character  (1)_1
-      rect:
-        serializedVersion: 2
-        x: 396
-        y: 0
-        width: 11
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c824742e60e85a130800000000000000
-      internalID: 3577421639232995980
+      spriteID: f4066cfa13d729aa0800000000000000
+      internalID: -6155720088306163633
       vertices: []
       indices: 
       edges: []
@@ -173,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Character  (1)_0: -5003948941098365262
-      Character  (1)_1: 3577421639232995980
+      Dark blue _0: -6155720088306163633
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
