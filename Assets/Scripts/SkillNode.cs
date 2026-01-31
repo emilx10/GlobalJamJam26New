@@ -57,6 +57,8 @@ public class SkillNode : MonoBehaviour
         CurrencyManager.Instance.Spend(cost);
         isUnlocked = true;
 
+        AudioManager.Instance.PlaySfx(1f, SFX.SoulDrop, 1.2f);
+
         if (effect != null) effect.Apply();
         SetLocked(true);
 
