@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d879234e34e8ab4e87ec5f64b99a195, type: 3}
   m_Name: MoreDmgAndMoveSpeed
   m_EditorClassIdentifier: Assembly-CSharp::ChaosCardData
-  mainEffectText: Deal more damage and move speed
-  hiddenSideEffectText: Hide player and player UI
+  mainEffectText: Deal more damage and move faster
+  hiddenSideEffectText: 'Side effect: Hide the player + player icon section.'
   playerModifier:
     stat: 0
-    value: 7
+    value: 10
   enemyModifier:
     stat: 0
     value: 0

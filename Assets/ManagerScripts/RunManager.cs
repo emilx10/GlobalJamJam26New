@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RunManager : MonoBehaviour
 {
@@ -8,6 +10,10 @@ public class RunManager : MonoBehaviour
     bool chaos10Triggered;
     bool runEnded;           // true when HP reaches 0
     public bool runPaused;
+    public HidePlayerAndImages restoreUI;
+
+    [Header("UI Buttons")]
+    public List<Button> buttonsToEnable; // assign buttons in inspector
 
     void Awake()
     {
@@ -64,12 +70,31 @@ public class RunManager : MonoBehaviour
         Time.timeScale = 1f; // resume game
     }
 
+    private void Start()
+    {
+        AudioManager.Instance.PlaySfx(0.3f, SFX.Music, 1f);
+    }
+
     public void StartNewRun()
     {
         PlayerStats.Instance.HP = PlayerStats.Instance.MaxHP;
         chaos20Triggered = false;
         chaos10Triggered = false;
         runEnded = false;
+
+        // Restore UI elements
+        restoreUI.RestoreAlpha();
+
+        // Make all buttons interactable
+        if (buttonsToEnable != null)
+        {
+            foreach (var btn in buttonsToEnable)
+            {
+                if (btn != null)
+                    btn.interactable = true;
+            }
+        }
+
         ChaosManager.Instance.ResetRun();
         ResumeRun();
     }

@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d879234e34e8ab4e87ec5f64b99a195, type: 3}
   m_Name: AttackSpeedAndDrop
   m_EditorClassIdentifier: Assembly-CSharp::ChaosCardData
-  mainEffectText: Increce attack speed by 50% enemies drop +1 soul
-  hiddenSideEffectText: Spawn more enemies
+  mainEffectText: Increase attack speed by 50%. Enemies have a 30% chance to drop
+    an extra soul.
+  hiddenSideEffectText: 'Side effect: Spawn more enemies'
   playerModifier:
     stat: 3
-    value: 5
+    value: 0
   enemyModifier:
     stat: 4
-    value: 1
+    value: 0
   linkSecondStat: 0
   linkedStat: 0
   linkedValue: 0

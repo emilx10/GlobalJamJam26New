@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillEffect
   playerModifier:
     stat: 0
-    value: 1
+    value: 0
   enemyModifier:
     stat: 0
     value: 0

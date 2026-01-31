@@ -8,5 +8,6 @@ public enum SFX
     SoulCollect1,
     SoulCollect2,
     SoulDrop,
-    Thrust
+    Thrust,
+    Music
 }

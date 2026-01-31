@@ -28,20 +28,6 @@ public class Enemy : MonoBehaviour
         EnemyManager.Instance?.RegisterEnemy(this);
     }
 
-    void Update()
-    {
-        if (data == null) return;
-
-        switch (data.type)
-        {
-            case EnemyType.Warden:
-                MoveVertical();
-                break;
-            case EnemyType.HellLeech:
-                MoveHorizontal();
-                break;
-        }
-    }
 
     public void Stun(float duration)
     {
@@ -62,23 +48,6 @@ public class Enemy : MonoBehaviour
         if (!player.gameObject.CompareTag("Player")) return;
 
         player.TakeDamage(damage);
-    }
-    void MoveVertical()
-    {
-        if (isStunned) return;
-        transform.Translate(Vector2.up * moveSpeed * Time.deltaTime);
-
-        if (transform.position.y >= data.maxY)
-            EnemyPool.Instance.ReturnEnemy(this);
-    }
-
-    void MoveHorizontal()
-    {
-        if (isStunned) return;
-        transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
-
-        if (transform.position.x >= data.maxX)
-            EnemyPool.Instance.ReturnEnemy(this);
     }
 
     /// <summary>
@@ -141,19 +110,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Die()
+    public void Die()
     {
         for (int i = 0; i < currentSoulDrop; i++)
         {
             ChaosOrbPool.Instance.Spawn(transform.position);
+            Destroy(gameObject); 
         }
-
-        EnemyPool.Instance.ReturnEnemy(this);
-    }
-
-
-    void OnDisable()
-    {
-        EnemyManager.Instance?.UnregisterEnemy(this);
     }
 }

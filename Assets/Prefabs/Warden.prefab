@@ -137,10 +137,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   data: {fileID: 11400000, guid: f1658c028c3512a40bb2d50ddaf63dd7, type: 2}
-  moveSpeed: 2
+  moveSpeed: 4
   maxHP: 18
   currentHP: 18
   damage: 8
+  isStunned: 0
+  baseSoulDrop: 2
+  currentSoulDrop: 2
   onHit:
     m_PersistentCalls:
       m_Calls: []

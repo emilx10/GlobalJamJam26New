@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Soul Drop +1
   m_EditorClassIdentifier: Assembly-CSharp::SkillEffect
   playerModifier:
-    stat: 2
+    stat: 4
     value: 0
   enemyModifier:
-    stat: 0
-    value: 0
+    stat: 4
+    value: 1

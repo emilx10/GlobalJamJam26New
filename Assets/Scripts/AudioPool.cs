@@ -33,6 +33,24 @@ public class AudioPool : MonoBehaviour
         availableSource.pitch = pitch;
         availableSource.volume = volume;
         availableSource.clip = audio;
+        availableSource.loop = false;
+        availableSource.Play();
+    }
+
+    public void PlayMusic(float volume, AudioClip audio, float pitch)
+    {
+        AudioSource availableSource = audioSources.Find(source => !source.isPlaying);
+
+        if (availableSource == null)
+        {
+            availableSource = gameObject.AddComponent<AudioSource>();
+            audioSources.Add(availableSource);
+        }
+
+        availableSource.pitch = pitch;
+        availableSource.volume = volume;
+        availableSource.clip = audio;
+        availableSource.loop = true;
         availableSource.Play();
     }
 }

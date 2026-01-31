@@ -18,7 +18,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioClip sfx_SoulCollect2;
     [SerializeField] public AudioClip sfx_SoulDrop;
     [SerializeField] public AudioClip sfx_Thrust;
-
+    [SerializeField] public AudioClip music;
     public void Awake()
     {
         if (!Instance.IsUnityNull())
@@ -66,11 +66,17 @@ public class AudioManager : MonoBehaviour
             case SFX.Thrust:
                 PlaySfx(volume, sfx_Thrust, pitch);
                 break;
+            case SFX.Music:
+                PlayMusic(volume, music, pitch);
+                break;
             default:
                 break;
         }
     }
-
+    public void PlayMusic(float volume, AudioClip audio, float pitch)
+    {
+        sfxPool.PlayMusic(volume, audio, pitch);
+    }
     public float GetRandomPitch(float min, float max)
     {
         return Random.Range(min, max);

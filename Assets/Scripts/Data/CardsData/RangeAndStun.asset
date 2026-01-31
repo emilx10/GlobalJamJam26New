@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d879234e34e8ab4e87ec5f64b99a195, type: 3}
   m_Name: RangeAndStun
   m_EditorClassIdentifier: Assembly-CSharp::ChaosCardData
-  mainEffectText: 70% Increce range and stun enemies on hit for 1 sec
-  hiddenSideEffectText: Enemies move faster
+  mainEffectText: Increase range by 70% and stun enemies on hit(1 second cooldown)
+  hiddenSideEffectText: 'Side effect: Enemies move faster'
   playerModifier:
     stat: 0
     value: 0
   enemyModifier:
     stat: 1
-    value: 3
+    value: 2
   linkSecondStat: 0
   linkedStat: 0
   linkedValue: 0

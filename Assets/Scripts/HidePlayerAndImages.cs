@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 public class HidePlayerAndImages : MonoBehaviour
 {
@@ -11,7 +12,12 @@ public class HidePlayerAndImages : MonoBehaviour
     [Header("UI Images to Hide")]
     public List<Image> imagesToHide; // Assign any UI Images you want to hide
 
-    // Hide everything
+    [Header("TextMeshPro to Hide")]
+    public List<TextMeshProUGUI> textsToHide; // Assign TextMeshProUGUI elements
+
+    /// <summary>
+    /// Hide everything by setting alpha to 0
+    /// </summary>
     public void SetAlphaZero()
     {
         // Hide player sprite
@@ -25,7 +31,7 @@ public class HidePlayerAndImages : MonoBehaviour
         // Hide weapon sprite
         if (weaponSprite != null)
         {
-            Color weaponColor = weaponSprite.color; // fix: was using playerSprite.color before
+            Color weaponColor = weaponSprite.color;
             weaponColor.a = 0f;
             weaponSprite.color = weaponColor;
         }
@@ -40,9 +46,22 @@ public class HidePlayerAndImages : MonoBehaviour
                 img.color = imgColor;
             }
         }
+
+        // Hide TextMeshProUGUI
+        foreach (var txt in textsToHide)
+        {
+            if (txt != null)
+            {
+                Color txtColor = txt.color;
+                txtColor.a = 0f;
+                txt.color = txtColor;
+            }
+        }
     }
 
-    // Restore everything to fully visible
+    /// <summary>
+    /// Restore everything by setting alpha to 1
+    /// </summary>
     public void RestoreAlpha()
     {
         // Restore player sprite
@@ -69,6 +88,17 @@ public class HidePlayerAndImages : MonoBehaviour
                 Color imgColor = img.color;
                 imgColor.a = 1f;
                 img.color = imgColor;
+            }
+        }
+
+        // Restore TextMeshProUGUI
+        foreach (var txt in textsToHide)
+        {
+            if (txt != null)
+            {
+                Color txtColor = txt.color;
+                txtColor.a = 1f;
+                txt.color = txtColor;
             }
         }
     }
