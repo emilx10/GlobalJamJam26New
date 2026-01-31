@@ -472,6 +472,7 @@ GameObject:
   - component: {fileID: 6259837403675430567}
   - component: {fileID: 6717924599749919225}
   - component: {fileID: 1071378078007511922}
+  - component: {fileID: 2249586174930030653}
   m_Layer: 0
   m_Name: HellLeech
   m_TagString: Enemy
@@ -641,3 +642,25 @@ CapsuleCollider2D:
   m_Offset: {x: -0.8407593, y: -1.0034943}
   m_Size: {x: 5.57251, y: 13.145905}
   m_Direction: 0
+--- !u!95 &2249586174930030653
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4628629706764934301}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 611adc69370edb543b4810d94857f7a5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
