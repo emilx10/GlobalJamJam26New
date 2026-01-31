@@ -16,4 +16,4 @@ MonoBehaviour:
   skillId: 8
   cost: 20
   effect: {fileID: 11400000, guid: a978a414c1fb7c449bf1673b1d22542d, type: 2}
-  requiresSkill: {fileID: 11400000, guid: 6c47177bd045c3f4f8e441a7fcf6a566, type: 2}
+  requiresSkill: {fileID: 11400000, guid: 140d293a51710474aa6088a299e8918b, type: 2}

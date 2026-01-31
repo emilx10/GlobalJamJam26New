@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class PlayerStats : MonoBehaviour
 
     // track if timer is running
     public bool timerPaused = false;
+
+    public UnityEvent onDied;
+    public UnityEvent onHitPlayer;
 
     void Awake()
     {
@@ -38,8 +42,10 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(float seconds)
     {
+        onHitPlayer.Invoke();
         HP -= seconds;
-        if (HP < 0) HP = 0;
+        if (HP < 0) { HP = 0; onDied.Invoke(); }
+        
         UpdateUI();
     }
 
