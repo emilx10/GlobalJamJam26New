@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance;
-
+    public PlayerController playerController;
     public float damage = 1;
     public float moveSpeed = 5;
 
@@ -67,11 +67,14 @@ public class PlayerStats : MonoBehaviour
                 break;
 
             case StatType.MoveSpeed:
-                moveSpeed += mod.value;
+                moveSpeed += mod.value/10;
                 break;
 
             case StatType.MaxHP:
                 HP += mod.value;
+                break;
+            case StatType.AttackSpeed:
+                playerController.attackCooldown -= (playerController.attackCooldown/10);
                 break;
         }
     }

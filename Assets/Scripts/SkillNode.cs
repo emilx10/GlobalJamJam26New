@@ -1,65 +1,86 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Collections;
+using TMPro;
+using UnityEngine.Events;
 
 public class SkillNode : MonoBehaviour
 {
-    public SkillNode[] unlocks;
+    public static UnityAction onSkillPressed;
     public int cost = 5;
     public SkillEffect effect;
-    public bool isRoot;
+    public bool isUnlocked = false;
+
+    [Header("Visual")]
+    public float unlockLerpTime = 0.35f;
+    public string sliderProperty = "_Slider";
+    public event Action<SkillNode> OnUnlocked;
+    public TMP_Text Title;
+    public Image image;
 
     Button button;
-    bool unlocked;
+    Material runtimeMat;
 
     void Awake()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(Choose);
-
-        SetVisible(isRoot);
-    }
-
-    public void SetVisible(bool v)
-    {
-        gameObject.SetActive(v);
-    }
-
-    void Choose()
-    {
-        if (unlocked) return;
-
-        // Check currency
-        if (CurrencyManager.Instance.ChaosOrbs < cost)
+        if (image != null && image.material != null)
         {
-            StartCoroutine(AutoCloseSkillTree());
-            return;
+            runtimeMat = Instantiate(image.material);
+            image.material = runtimeMat;
+            runtimeMat.SetFloat(sliderProperty, 1f);
         }
+        button.onClick.AddListener(OnClick);
+    }
+
+    public void SetLocked(bool locked)
+    {
+        button.interactable = !locked;
+    }
+
+    public void Show(bool interactable)
+    {
+        gameObject.SetActive(true);
+        SetLocked(!interactable);
+    }
+
+    public void ChanggeData(SkillData data)
+    {
+        Title.text = data.skillName;
+    }
+
+    void OnClick()
+    {
+        if (isUnlocked) return;
+        if (CurrencyManager.Instance.ChaosOrbs < cost) return;
 
         CurrencyManager.Instance.Spend(cost);
-        unlocked = true;
+        isUnlocked = true;
 
-        effect.Apply();
+        if (effect != null) effect.Apply();
+        SetLocked(true);
 
-        button.interactable = false;
-
-        StartCoroutine(RevealChildrenThenStartRun());
+        StartCoroutine(LerpUnlock());
+        OnUnlocked?.Invoke(this);
+        onSkillPressed?.Invoke();
+        StartCoroutine(Wait());
     }
-
-    IEnumerator RevealChildrenThenStartRun()
+    IEnumerator Wait()
     {
-        foreach (var n in unlocks)
-            n.SetVisible(true);
-
         yield return new WaitForSecondsRealtime(3f);
-
-        GameManager.Instance.ExitSkillTree(); // Exit panel, start new run
-    }
-
-    IEnumerator AutoCloseSkillTree()
-    {
-        yield return new WaitForSecondsRealtime(5f);
-
         GameManager.Instance.ExitSkillTree();
+    }
+    IEnumerator LerpUnlock()
+    {
+        float t = 0f;
+        while (t < unlockLerpTime)
+        {
+            t += Time.unscaledDeltaTime;
+            float v = Mathf.Lerp(1f, 0f, t / unlockLerpTime);
+            if (runtimeMat != null) runtimeMat.SetFloat(sliderProperty, v);
+            yield return null;
+        }
+        if (runtimeMat != null) runtimeMat.SetFloat(sliderProperty, 0f);
     }
 }
