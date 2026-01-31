@@ -19,12 +19,11 @@ public class SkillNode : MonoBehaviour
     public TMP_Text Title;
     public Image image;
 
-    Button button;
+    public Button button;
     Material runtimeMat;
 
     void Awake()
     {
-        button = GetComponent<Button>();
         if (image != null && image.material != null)
         {
             runtimeMat = Instantiate(image.material);

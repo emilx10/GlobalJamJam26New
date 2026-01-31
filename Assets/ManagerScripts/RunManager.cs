@@ -55,7 +55,7 @@ public class RunManager : MonoBehaviour
     void PauseRun()
     {
         runPaused = true;
-        Time.timeScale = 0f; // freeze game
+        Time.timeScale = 0f; // freeze game ///THIS MAKE SHADERS NOT WORK N
     }
 
     void ResumeRun()
