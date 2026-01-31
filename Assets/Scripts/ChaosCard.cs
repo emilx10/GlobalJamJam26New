@@ -1,16 +1,21 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class ChaosCard : MonoBehaviour
 {
-    [Header("Card Text")]
-    [TextArea(3, 6)]
-    public string cardDescription;
+    public ChaosCardData data;
 
-    public TextMeshProUGUI descriptionText;
+    [SerializeField] TextMeshProUGUI mainText;
+    [SerializeField] TextMeshProUGUI sideText;
 
     void OnEnable()
     {
-        descriptionText.text = cardDescription;
+        mainText.text = data.mainEffectText;
+        sideText.text = "Side effect: ???";
+    }
+
+    public void RevealSideEffect()
+    {
+        sideText.text = data.hiddenSideEffectText;
     }
 }

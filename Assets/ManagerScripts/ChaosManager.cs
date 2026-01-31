@@ -11,6 +11,7 @@ public class ChaosManager : MonoBehaviour
     private HashSet<ChaosCardData> chosenThisRun = new();
     [SerializeField] Image chaosTimerSand; // the sand Image (Filled)
     [SerializeField] float chaosChoiceTime = 5f;
+
     Coroutine chaosTimerRoutine;
     System.Action onCardPicked;
 
@@ -49,15 +50,40 @@ public class ChaosManager : MonoBehaviour
     {
         if (chaosTimerRoutine != null)
             StopCoroutine(chaosTimerRoutine);
-
+        // MAIN EFFECT
         PlayerStats.Instance.Apply(card.playerModifier);
         EnemyManager.Instance.ApplyGlobal(card.enemyModifier);
+        // --- NEW: increment soul drop for all enemies ---
+        foreach (var enemy in EnemyManager.Instance.activeEnemies)
+        {
+            enemy.ApplyModifier(new Modifier
+            {
+                stat = StatType.SoulDrop,
+                value = 1
+            });
+        }
+
+        // LINKED SIDE EFFECT
+        if (card.linkSecondStat)
+        {
+            Modifier extra = new Modifier
+            {
+                stat = card.linkedStat,
+                value = card.linkedValue
+            };
+
+            PlayerStats.Instance.Apply(extra);
+        }
 
         chosenThisRun.Add(card);
 
-        if (chaosCardPanel != null)
-            chaosCardPanel.SetActive(false);
+        StartCoroutine(CloseAfterReveal());
+    }
 
+    IEnumerator CloseAfterReveal()
+    {
+        yield return new WaitForSecondsRealtime(1.2f);
+        chaosCardPanel.SetActive(false);
         onCardPicked?.Invoke();
     }
     void AutoPickCard()

@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d879234e34e8ab4e87ec5f64b99a195, type: 3}
-  m_Name: +5 Damage Card
+  m_Name: AttackSpeedAndDrop
   m_EditorClassIdentifier: Assembly-CSharp::ChaosCardData
-  title: Chaos Damage
-  description: +5 Damage
+  mainEffectText: Increce attack speed by 50% enemies drop +1 soul
+  hiddenSideEffectText: Spawn more enemies
   playerModifier:
-    stat: 0
+    stat: 3
     value: 5
   enemyModifier:
-    stat: 1
-    value: 3
+    stat: 4
+    value: 1
+  linkSecondStat: 0
+  linkedStat: 0
+  linkedValue: 0

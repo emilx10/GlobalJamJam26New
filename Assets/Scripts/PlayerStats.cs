@@ -69,14 +69,21 @@ public class PlayerStats : MonoBehaviour
                 break;
 
             case StatType.MoveSpeed:
-                moveSpeed += mod.value/10;
+                moveSpeed += mod.value / 10f;
                 break;
 
             case StatType.MaxHP:
                 MaxHP += mod.value;
+                HP += mod.value; // IMPORTANT: carry HP into next run
                 break;
+
             case StatType.AttackSpeed:
-                playerController.attackCooldown -= (playerController.attackCooldown/10);
+                playerController.attackCooldown -= playerController.attackCooldown * 0.1f;
+                break;
+            case StatType.AttackRange:
+                // multiply by (1 + value) to increase by percentage
+                if (playerController != null)
+                    playerController.attackRange *= (1f + mod.value);
                 break;
         }
     }

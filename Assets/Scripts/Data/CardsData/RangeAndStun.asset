@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d879234e34e8ab4e87ec5f64b99a195, type: 3}
-  m_Name: +10HP Card
+  m_Name: RangeAndStun
   m_EditorClassIdentifier: Assembly-CSharp::ChaosCardData
-  title: Chaos HP
-  description: +10 HP
+  mainEffectText: 70% Increce range and stun enemies on hit for 1 sec
+  hiddenSideEffectText: Enemies move faster
   playerModifier:
-    stat: 2
-    value: 10
-  enemyModifier:
     stat: 0
-    value: 5
+    value: 0
+  enemyModifier:
+    stat: 1
+    value: 3
+  linkSecondStat: 0
+  linkedStat: 0
+  linkedValue: 0

@@ -1,22 +1,35 @@
-using TMPro;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class ChaosCardUI : MonoBehaviour
 {
-    public TextMeshProUGUI titleText;
-    public TextMeshProUGUI descText;
-    ChaosCardData data;
+    public ChaosCardData cardData;
 
-    public void Setup(ChaosCardData card)
+    [SerializeField] TextMeshProUGUI mainText;
+    [SerializeField] TextMeshProUGUI sideEffectText;
+
+    Button button;
+
+    void Awake()
     {
-        data = card;
-        titleText.text = card.title;
-        descText.text = card.description;
+        button = GetComponent<Button>();
+        button.onClick.AddListener(OnClick);
     }
 
-    public void Choose()
+    void OnEnable()
     {
-        ChaosManager.Instance.ApplyCard(data);
+        mainText.text = cardData.mainEffectText;
+        sideEffectText.text = "Side effect: ???";
+    }
+
+    void OnClick()
+    {
+        ChaosManager.Instance.ApplyCard(cardData);
+    }
+
+    public void RevealSideEffect()
+    {
+        sideEffectText.text = cardData.hiddenSideEffectText;
     }
 }

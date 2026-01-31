@@ -10,5 +10,7 @@ public enum StatType
     Damage,
     MoveSpeed,
     MaxHP,
-    AttackSpeed
+    AttackSpeed,
+    SoulDrop,
+    AttackRange
 }

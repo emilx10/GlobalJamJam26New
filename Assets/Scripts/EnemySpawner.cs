@@ -7,8 +7,8 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawn Area Vertical")]
     public float spawnMinX = -5f;
     public float spawnMaxX = 5f;
-    public float spawnY = -5f;
-
+    public float spawnminY = -5f;
+    public float spawnmaxY = -5f;
     [Header("Spawn Interval")]
     public float spawnInterval = 2f;
     float timer;
@@ -34,14 +34,20 @@ public class EnemySpawner : MonoBehaviour
 
         if (data.type == EnemyType.HellLeech)
         {
-            float randomX = Random.Range(spawnMinX, spawnMaxX);
-            pos = new Vector2(randomX, spawnY);
+            pos = new Vector2(data.minY, data.maxY);
         }
         else if (data.type == EnemyType.Warden)
         {
-            pos = new Vector2(data.minX, data.minY); // start horizontal movement at minX
+            pos = new Vector2(data.minX, data.maxX); // start horizontal movement at minX
         }
 
         EnemyPool.Instance.Spawn(data, pos);
     }
+
+    public void ReduceSpawnInterval(float amount)
+    {
+        spawnInterval = Mathf.Max(0.1f, spawnInterval - amount); // clamp to avoid zero or negative
+        Debug.Log("New spawn interval: " + spawnInterval);
+    }
+
 }

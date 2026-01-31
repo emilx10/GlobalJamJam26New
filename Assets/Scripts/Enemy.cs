@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,6 +11,11 @@ public class Enemy : MonoBehaviour
     public int maxHP;
     public int currentHP;
     public int damage;
+    public bool isStunned = false;
+    [Header("Drops")]
+    public int baseSoulDrop;     // Base drop from EnemyData
+    public int currentSoulDrop;  // Modified by Chaos Cards
+
 
     public UnityEvent onHit;
     public UnityEvent onDied;
@@ -36,6 +42,19 @@ public class Enemy : MonoBehaviour
                 break;
         }
     }
+
+    public void Stun(float duration)
+    {
+        if (!isActiveAndEnabled) return;
+        StartCoroutine(StunRoutine(duration));
+    }
+
+    private IEnumerator StunRoutine(float duration)
+    {
+        isStunned = true;
+        yield return new WaitForSeconds(duration);
+        isStunned = false;
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerStats player = collision.GetComponentInParent<PlayerStats>();
@@ -46,6 +65,7 @@ public class Enemy : MonoBehaviour
     }
     void MoveVertical()
     {
+        if (isStunned) return;
         transform.Translate(Vector2.up * moveSpeed * Time.deltaTime);
 
         if (transform.position.y >= data.maxY)
@@ -54,6 +74,7 @@ public class Enemy : MonoBehaviour
 
     void MoveHorizontal()
     {
+        if (isStunned) return;
         transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
 
         if (transform.position.x >= data.maxX)
@@ -73,9 +94,14 @@ public class Enemy : MonoBehaviour
         damage = data.damage;
         currentHP = maxHP;
 
+        // Initialize soul drop
+        baseSoulDrop = data.soulDrop;    // <- Make sure EnemyData has this field
+        currentSoulDrop = baseSoulDrop;
+
         // Apply all currently active global modifiers
         EnemyManager.Instance?.ApplyCurrentModifiers(this);
     }
+
 
     public void TakeDamage(int dmg)
     {
@@ -109,14 +135,22 @@ public class Enemy : MonoBehaviour
                 maxHP += Mathf.RoundToInt(modifier.value);
                 currentHP += Mathf.RoundToInt(modifier.value);
                 break;
+            case StatType.SoulDrop:  // <- new StatType for soul drops
+                currentSoulDrop += Mathf.RoundToInt(modifier.value);
+                break;
         }
     }
 
     void Die()
     {
-        ChaosOrbPool.Instance.Spawn(transform.position);
+        for (int i = 0; i < currentSoulDrop; i++)
+        {
+            ChaosOrbPool.Instance.Spawn(transform.position);
+        }
+
         EnemyPool.Instance.ReturnEnemy(this);
     }
+
 
     void OnDisable()
     {

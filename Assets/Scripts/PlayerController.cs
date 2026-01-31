@@ -14,6 +14,13 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D rb;
     PlayerInput playerInput;
+    public Enemy enemy;
+
+    [Header("Stun Chance")]
+    public bool canStun = false;        // toggled by button
+    [Range(0f, 1f)]
+    public float stunChance = 0.2f;     // 20% default chance
+    public float stunDuration = 1f;     // how long enemies get stunned
 
     public UnityEvent onSlash;
 
@@ -48,6 +55,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         RotateTridentTowardsMouse();
+    }
+    public void ActivateStunChance(bool active)
+    {
+        canStun = active;
+        Debug.Log("Stun chance active: " + canStun);
     }
 
     void RotateTridentTowardsMouse()
@@ -97,6 +109,10 @@ public class PlayerController : MonoBehaviour
                 enemy.TakeDamage(Mathf.RoundToInt(damage));
             }
         }
+        if (canStun && Random.value <= stunChance)
+        {
+            enemy.Stun(stunDuration); // call the stun method on the enemy
+        }
 
         onSlash.Invoke();
     }
@@ -117,5 +133,11 @@ public class PlayerController : MonoBehaviour
             trident.position + left * attackRange);
         Gizmos.DrawLine(trident.position,
             trident.position + right * attackRange);
+    }
+
+    public void IncreaseAttackRange(float percent)
+    {
+        attackRange *= (1f + percent); // percent = 0.7 for +70%
+        Debug.Log("New attack range: " + attackRange);
     }
 }
