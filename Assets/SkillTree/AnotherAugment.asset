@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1c6c561325c9e4d8054a23fbac49a3, type: 3}
   m_Name: AnotherAugment
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
-  skillName: 
+  skillName: Augment
   skillId: 7
   cost: 14
   effect: {fileID: 11400000, guid: efa8d7b8d74f231428642953860a0bc8, type: 2}
-  requiresSkill: {fileID: 11400000, guid: 6c47177bd045c3f4f8e441a7fcf6a566, type: 2}
+  requiresSkill: {fileID: 11400000, guid: 140d293a51710474aa6088a299e8918b, type: 2}

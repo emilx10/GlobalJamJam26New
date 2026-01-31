@@ -15,6 +15,7 @@ public class EnemyFeedbacks : MonoBehaviour
     private void Hit()
     {
         hitFeedback.PlayFeedbacks();
+        AudioManager.Instance.PlaySfx(1f, SFX.EnemyDamaged, 1f);
     }
     
     private void Died()

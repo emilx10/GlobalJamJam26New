@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public float stunDuration = 1f;     // how long enemies get stunned
 
     public UnityEvent onSlash;
+    public UnityEvent onStabbed;
 
     float lastAttackTime;
 
@@ -107,6 +108,7 @@ public class PlayerController : MonoBehaviour
             if (angle <= attackAngle * 0.5f)
             {
                 enemy.TakeDamage(Mathf.RoundToInt(damage));
+                onStabbed.Invoke();
             }
         }
         if (canStun && Random.value <= stunChance)

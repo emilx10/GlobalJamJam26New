@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1c6c561325c9e4d8054a23fbac49a3, type: 3}
   m_Name: Augment+Skill Timer
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
-  skillName: 
+  skillName: Augment
   skillId: 6
   cost: 10
   effect: {fileID: 11400000, guid: 87027cb7dde64f542a140b6649039ae7, type: 2}

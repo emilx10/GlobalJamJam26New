@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6717924599749919225}
   - component: {fileID: 7544679341526994148}
   - component: {fileID: 4103365012552783956}
+  - component: {fileID: 7233542544804684164}
   m_Layer: 0
   m_Name: Warden
   m_TagString: Enemy
@@ -197,6 +198,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyFeedbacks
   enemy: {fileID: 6717924599749919225}
   hitFeedback: {fileID: 3222728963401224976}
+--- !u!95 &7233542544804684164
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4628629706764934301}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1979acf5ceee4c548b1ea7c13b35af66, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6534224081788558302
 GameObject:
   m_ObjectHideFlags: 0
