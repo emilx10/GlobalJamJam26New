@@ -1969,6 +1969,9 @@ MonoBehaviour:
   attackRange: 3
   attackAngle: 360
   attackCooldown: 0.7
+  onSlash:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &509132269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2023,6 +2026,20 @@ MonoBehaviour:
   HP: 40
   hpText: {fileID: 376193820}
   timerPaused: 0
+--- !u!114 &509132274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509132265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78e35af950849349963785c86b6a6f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerFeedbacks
+  slashHit: {fileID: 1581415108}
+  playerController: {fileID: 509132268}
 --- !u!1 &509683064
 GameObject:
   m_ObjectHideFlags: 0
@@ -5235,6 +5252,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChaosCard
   cardDescription: +10 HP
   descriptionText: {fileID: 1441393425}
+--- !u!114 &1581415108 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2572673352969112470, guid: 53d539a99c2d5c74884d7efdfaeba71c, type: 3}
+  m_PrefabInstance: {fileID: 6927458454184947208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MoreMountains.Tools::MoreMountains.Feedbacks.MMF_Player
 --- !u!1 &1647929544
 GameObject:
   m_ObjectHideFlags: 0
@@ -9925,6 +9953,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2572673352969112470, guid: 53d539a99c2d5c74884d7efdfaeba71c, type: 3}
+      propertyPath: managedReferences[6934622724332978457].AnimateX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572673352969112470, guid: 53d539a99c2d5c74884d7efdfaeba71c, type: 3}
+      propertyPath: managedReferences[6934622724332978457].AnimateY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572673352969112470, guid: 53d539a99c2d5c74884d7efdfaeba71c, type: 3}
+      propertyPath: managedReferences[6934622724332978457].RemapCurveOne
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572673352969112470, guid: 53d539a99c2d5c74884d7efdfaeba71c, type: 3}
+      propertyPath: managedReferences[6934622724332978457].AnimateScaleTarget
+      value: 
+      objectReference: {fileID: 1891422501}
     - target: {fileID: 3135136793493049619, guid: 53d539a99c2d5c74884d7efdfaeba71c, type: 3}
       propertyPath: m_Size.x
       value: 43.510002
@@ -10042,6 +10086,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5794403867439112591, guid: 53d539a99c2d5c74884d7efdfaeba71c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 509132272}
+    - targetCorrespondingSourceObject: {fileID: 5794403867439112591, guid: 53d539a99c2d5c74884d7efdfaeba71c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 509132274}
   m_SourcePrefab: {fileID: 100100000, guid: 53d539a99c2d5c74884d7efdfaeba71c, type: 3}
 --- !u!224 &7710547167115994015
 RectTransform:
