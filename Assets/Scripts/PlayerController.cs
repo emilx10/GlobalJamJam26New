@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     PlayerInput playerInput;
 
     public UnityEvent onSlash;
+    public UnityEvent onStabbed;
 
     float lastAttackTime;
 
@@ -95,6 +96,7 @@ public class PlayerController : MonoBehaviour
             if (angle <= attackAngle * 0.5f)
             {
                 enemy.TakeDamage(Mathf.RoundToInt(damage));
+                onStabbed.Invoke();
             }
         }
 
