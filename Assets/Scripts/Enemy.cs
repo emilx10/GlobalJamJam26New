@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class Enemy : MonoBehaviour
     public int maxHP;
     public int currentHP;
     public int damage;
+
+    public UnityEvent onHit;
+    public UnityEvent onDied;
 
     void OnEnable()
     {
@@ -76,8 +80,16 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         currentHP -= dmg;
+
         if (currentHP <= 0)
+        {
             Die();
+            onDied.Invoke();
+        }
+        else
+        {
+            onHit.Invoke();
+        }
     }
 
     /// <summary>
