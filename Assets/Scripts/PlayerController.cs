@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D rb;
     PlayerInput playerInput;
+
+    public UnityEvent onSlash;
 
     float lastAttackTime;
 
@@ -94,6 +97,8 @@ public class PlayerController : MonoBehaviour
                 enemy.TakeDamage(Mathf.RoundToInt(damage));
             }
         }
+
+        onSlash.Invoke();
     }
 
     void OnDrawGizmosSelected()
