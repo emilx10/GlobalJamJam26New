@@ -66,7 +66,7 @@ public class RunManager : MonoBehaviour
 
     public void StartNewRun()
     {
-        PlayerStats.Instance.HP = 40f;
+        PlayerStats.Instance.HP = PlayerStats.Instance.MaxHP;
         chaos20Triggered = false;
         chaos10Triggered = false;
         runEnded = false;

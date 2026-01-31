@@ -13,65 +13,11 @@ public class SkillTreeController : MonoBehaviour
     Dictionary<SkillNode, List<SkillNode>> graph = new();
     Dictionary<SkillNode, SkillLink> nodeToIncomingLink = new();
 
-    [Header("Skill Tree Timer")]
-    [SerializeField] float skillTreeTime = 5f;
-    [SerializeField] Image skillTreeTimerSand;
-
     void Start()
     {
         BuildNodes();
         BuildGraph();
         SetupInitialPreview();
-        skillTreeTimerSand.fillAmount = 1f;
-    }
-    private void OnEnable()
-    {
-        skillTreeTimerSand.fillAmount = 1f;
-        StartSkillTreeTimer();
-    }
-    void StartSkillTreeTimer()
-    {
-        if (skillTreeTimerSand != null)
-        {
-            skillTreeTimerSand.fillAmount = 1f;
-            // Reset scale in case it was left mid-pulse from the last run
-            skillTreeTimerSand.transform.localScale = Vector3.one;
-        }
-
-        // Safety: ensure time is greater than 0 to avoid division by zero
-        if (skillTreeTime <= 0) skillTreeTime = 5f;
-
-        StopAllCoroutines(); // Prevent multiple timers from running at once
-        StartCoroutine(SkillTreeTimer());
-    }
-
-    IEnumerator SkillTreeTimer()
-    {
-        float t = skillTreeTime;
-
-        while (t > 0f)
-        {
-            t -= Time.unscaledDeltaTime;
-
-            if (skillTreeTimerSand != null)
-            {
-                // This line specifically controls the visual "going down"
-                skillTreeTimerSand.fillAmount = Mathf.Clamp01(t / skillTreeTime);
-
-                // Pulsing effect when less than 1 second remains
-                if (t < 1f)
-                {
-                    float s = 1f + Mathf.Sin(Time.unscaledTime * 20f) * 0.08f;
-                    skillTreeTimerSand.transform.localScale = Vector3.one * s;
-                }
-            }
-            yield return null;
-        }
-
-        // Ensure it hits exactly 0 at the end
-        if (skillTreeTimerSand != null) skillTreeTimerSand.fillAmount = 0f;
-
-        GameManager.Instance.ExitSkillTree();
     }
     void BuildNodes()
     {

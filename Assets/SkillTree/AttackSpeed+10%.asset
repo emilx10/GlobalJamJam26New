@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1c6c561325c9e4d8054a23fbac49a3, type: 3}
   m_Name: AttackSpeed+10%
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
-  skillName: 
+  skillName: 10% Attack Speed
   skillId: 3
   cost: 5
   effect: {fileID: 11400000, guid: 7b3c52ef18cf54b44b6409c1cf4ce56a, type: 2}

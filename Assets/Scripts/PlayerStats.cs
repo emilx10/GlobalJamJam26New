@@ -9,6 +9,7 @@ public class PlayerStats : MonoBehaviour
     public float moveSpeed = 5;
 
     [Header("Timer HP")]
+    public float MaxHP;
     public float HP; // seconds
     public TextMeshProUGUI hpText;
 
@@ -18,6 +19,7 @@ public class PlayerStats : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        HP = MaxHP;
     }
 
     void Update()
@@ -71,7 +73,7 @@ public class PlayerStats : MonoBehaviour
                 break;
 
             case StatType.MaxHP:
-                HP += mod.value;
+                MaxHP += mod.value;
                 break;
             case StatType.AttackSpeed:
                 playerController.attackCooldown -= (playerController.attackCooldown/10);
